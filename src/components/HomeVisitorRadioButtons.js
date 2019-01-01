@@ -6,7 +6,8 @@ const RadioGroup = Radio.Group;
 
 export class HomeVisitorRadioButtons extends React.Component {
     onChange = (e) => {
-        console.log(`radio checked:${e.target.value}`);
+        // console.log(`radio checked:${e.target.value}`);
+        this.props.callback(e.target.value);
     }
 
     render() {

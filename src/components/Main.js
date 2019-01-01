@@ -9,6 +9,7 @@ export class Main extends React.Component {
         super(props);
 
         this.state = {
+            radioState: 'Both',
             data: []
         };
 
@@ -58,11 +59,16 @@ export class Main extends React.Component {
         });
     }
 
+    handleHomeVisitorRadioButtons = (radioState) => {
+        this.setState({radioState: radioState});
+        // console.log('handleHomeVisitorRadioButtons: ' + radioState);
+    }
+
     render() {
         return (
             <div className="main">
-                <HomeVisitorRadioButtons/>
-                <Chart data={this.state.data}/>
+                <HomeVisitorRadioButtons callback={this.handleHomeVisitorRadioButtons}/>
+                <Chart data={this.state.data} radioState={this.state.radioState}/>
             </div>
         )
     }

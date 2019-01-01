@@ -9,10 +9,20 @@ const Chart = (props) => {
 
     const dataArr = [];
     for (let row of props.data) {
-        if (row.home.name === 'Golden State Warriors') {
-            dataArr.push({x: row.date, y: parseInt(row.home.pts)});
-        } else if (row.visitor.name === 'Golden State Warriors') {
-            dataArr.push({x: row.date, y: parseInt(row.visitor.pts)});
+        if (props.radioState === 'Both') {
+            if (row.home.name === 'Golden State Warriors') {
+                dataArr.push({x: row.date, y: parseInt(row.home.pts)});
+            } else if (row.visitor.name === 'Golden State Warriors') {
+                dataArr.push({x: row.date, y: parseInt(row.visitor.pts)});
+            }
+        } else if (props.radioState === 'Home') {
+            if (row.home.name === 'Golden State Warriors') {
+                dataArr.push({x: row.date, y: parseInt(row.home.pts)});
+            }
+        } else { // Visitor
+            if (row.visitor.name === 'Golden State Warriors') {
+                dataArr.push({x: row.date, y: parseInt(row.visitor.pts)});
+            }
         }
     }
 
