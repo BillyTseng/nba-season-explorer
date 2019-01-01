@@ -3,7 +3,6 @@ import Papa from 'papaparse';
 import Chart from "./Chart"
 import {HomeVisitorRadioButtons} from "./HomeVisitorRadioButtons"
 import {TeamSelector} from "./TeamSelector"
-import {DIVISIONS} from "../assets/constant"
 
 export class Main extends React.Component {
 
@@ -63,22 +62,13 @@ export class Main extends React.Component {
 
     handleHomeVisitorRadioButtons = (radioState) => {
         this.setState({radioState: radioState});
-        // console.log('handleHomeVisitorRadioButtons: ' + radioState);
-    }
-
-    populateTeamSelectors = () => {
-        let table = [];
-        for (let div of DIVISIONS) {
-            table.push(<TeamSelector key={div.name} name={div.name} teams={div.teams}/>);
-        }
-        return table;
     }
 
     render() {
         return (
             <div className="main">
                 <HomeVisitorRadioButtons callback={this.handleHomeVisitorRadioButtons}/>
-                {this.populateTeamSelectors()}
+                <TeamSelector/>
                 <Chart data={this.state.data} radioState={this.state.radioState}/>
             </div>
         )

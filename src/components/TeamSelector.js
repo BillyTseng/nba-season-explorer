@@ -1,39 +1,14 @@
 import React from "react"
 import {TreeSelect} from 'antd';
+import {DIVISIONS} from "../assets/constant"
 
 const SHOW_PARENT = TreeSelect.SHOW_PARENT;
 
-const treeData = [{
-    title: 'Node1',
-    value: '0-0',
-    key: '0-0',
-    children: [{
-        title: 'Child Node1',
-        value: '0-0-0',
-        key: '0-0-0',
-    }],
-}, {
-    title: 'Node2',
-    value: '0-1',
-    key: '0-1',
-    children: [{
-        title: 'Child Node3',
-        value: '0-1-0',
-        key: '0-1-0',
-    }, {
-        title: 'Child Node4',
-        value: '0-1-1',
-        key: '0-1-1',
-    }, {
-        title: 'Child Node5',
-        value: '0-1-2',
-        key: '0-1-2',
-    }],
-}];
+const treeData = [];
 
 export class TeamSelector extends React.Component {
     state = {
-        value: ['0-0-0'],
+        value: ['Golden State Warriors'],
     }
 
     onChange = (value) => {
@@ -41,17 +16,27 @@ export class TeamSelector extends React.Component {
         this.setState({value});
     }
 
+    componentWillMount() {
+        for (let div of DIVISIONS) {
+            const divName = div.name;
+            let children = [];
+            for (let teamName of div.teams) {
+                children.push({title: teamName, value: teamName, key: teamName});
+            }
+            treeData.push({title: divName, value: divName, key: divName, children: children});
+        }
+    }
+
     render() {
-        //console.log(this.props.name + this.props.teams);
         const tProps = {
             treeData,
             value: this.state.value,
             onChange: this.onChange,
             treeCheckable: true,
             showCheckedStrategy: SHOW_PARENT,
-            searchPlaceholder: 'Please select',
+            searchPlaceholder: 'Please select team',
             style: {
-                width: 300,
+                width: 900,
             },
         };
         return <TreeSelect {...tProps} />;
