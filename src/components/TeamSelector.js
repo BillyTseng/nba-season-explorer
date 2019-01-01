@@ -12,8 +12,9 @@ export class TeamSelector extends React.Component {
     }
 
     onChange = (value) => {
-        console.log('onChange ', value);
+        // console.log('onChange ', value);
         this.setState({value});
+        this.props.callback(value);
     }
 
     componentWillMount() {

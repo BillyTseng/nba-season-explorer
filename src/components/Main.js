@@ -11,7 +11,8 @@ export class Main extends React.Component {
 
         this.state = {
             radioState: 'Both',
-            data: []
+            data: [],
+            teamStates: ['Golden State Warriors']
         };
 
         this.getData = this.getData.bind(this);
@@ -64,12 +65,16 @@ export class Main extends React.Component {
         this.setState({radioState: radioState});
     }
 
+    handleTeamStates = (teamStates) => {
+        this.setState({teamStates: teamStates});
+    }
+
     render() {
         return (
             <div className="main">
                 <HomeVisitorRadioButtons callback={this.handleHomeVisitorRadioButtons}/>
-                <TeamSelector/>
-                <Chart data={this.state.data} radioState={this.state.radioState}/>
+                <TeamSelector callback={this.handleTeamStates}/>
+                <Chart data={this.state.data} radioState={this.state.radioState} teamStates={this.state.teamStates}/>
             </div>
         )
     }
