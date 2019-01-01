@@ -1,6 +1,7 @@
 import React from 'react';
 import Papa from 'papaparse';
 import Chart from "./Chart"
+import {HomeVisitorRadioButtons} from "./HomeVisitorRadioButtons"
 
 export class Main extends React.Component {
 
@@ -60,6 +61,7 @@ export class Main extends React.Component {
     render() {
         return (
             <div className="main">
+                <HomeVisitorRadioButtons/>
                 <Chart data={this.state.data}/>
             </div>
         )
