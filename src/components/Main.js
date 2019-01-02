@@ -3,6 +3,8 @@ import Papa from 'papaparse';
 import Chart from "./Chart"
 import {HomeVisitorRadioButtons} from "./HomeVisitorRadioButtons"
 import {TeamSelector} from "./TeamSelector"
+import {AppendData} from "./AppendData"
+import {Row, Col} from "antd"
 
 export class Main extends React.Component {
 
@@ -13,7 +15,6 @@ export class Main extends React.Component {
             radioState: 'Both',
             data: [],
             teamStates: ['Golden State Warriors'],
-            updateFlag: true
         };
 
         this.getData = this.getData.bind(this);
@@ -24,16 +25,26 @@ export class Main extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.userInput.length > 0 && this.state.updateFlag === true) {
-            let appendArr = this.parseUserInput(this.props.userInput);
-            appendArr = this.convertArrToObject(appendArr);
-            let targetArr = [...this.state.data, ...appendArr];
+        // if (this.props.userInput.length > 0 && this.state.updateFlag) {
+        //     let appendArr = this.parseUserInput(this.props.userInput);
+        //     appendArr = this.convertArrToObject(appendArr);
+        //     let targetArr = [...this.state.data, ...appendArr];
+        //
+        //     this.setState({
+        //         data: targetArr,
+        //         updateFlag: false
+        //     });
+        // }
+    }
 
-            this.setState({
-                data: targetArr,
-                updateFlag: false
-            });
-        }
+    updateData = (userInput) => {
+        let appendArr = this.parseUserInput(userInput);
+        appendArr = this.convertArrToObject(appendArr);
+        let targetArr = [...this.state.data, ...appendArr];
+
+        this.setState({
+            data: targetArr,
+        });
     }
 
     parseUserInput = (str) => {
@@ -102,7 +113,16 @@ export class Main extends React.Component {
     render() {
         return (
             <div className="main">
-                <HomeVisitorRadioButtons callback={this.handleHomeVisitorRadioButtons}/>
+                <div style={{ margin: '24px 0' }} />
+                <Row>
+                    <Col span={5} offset={7}>
+                        <AppendData callback={this.updateData}/>
+                    </Col>
+                    <Col span={5}>
+                        <HomeVisitorRadioButtons callback={this.handleHomeVisitorRadioButtons}/>
+                    </Col>
+                </Row>
+                <div style={{ margin: '24px 0' }} />
                 <TeamSelector callback={this.handleTeamStates}/>
                 <Chart data={this.state.data} radioState={this.state.radioState} teamStates={this.state.teamStates}/>
             </div>

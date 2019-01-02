@@ -1,6 +1,5 @@
 .App-header {
     background-color: #1D428A;
-    /*display: flex;*/
     box-shadow: -1px 0 5px 0 #1D428A;
     margin-bottom: 20px;
     padding: 10px 0 5px 40px;
@@ -18,12 +17,4 @@
     font-size: 1.5em;
     padding-top: 6px;
     padding-left: 15px;
-}
-
-.App-add {
-    float: right;
-    font-size: 18px;
-    color: white;
-    padding-top: 8px;
-    padding-right: 20px;
 }
