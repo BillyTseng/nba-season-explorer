@@ -12,7 +12,8 @@ export class Main extends React.Component {
         this.state = {
             radioState: 'Both',
             data: [],
-            teamStates: ['Golden State Warriors']
+            teamStates: ['Golden State Warriors'],
+            updateFlag: true
         };
 
         this.getData = this.getData.bind(this);
@@ -22,20 +23,32 @@ export class Main extends React.Component {
         this.getCsvData();
     }
 
-    fetchCsv() {
-        return fetch('nba.csv').then(function (response) {
-            let reader = response.body.getReader();
-            let decoder = new TextDecoder('utf-8');
+    componentDidUpdate() {
+        if (this.props.userInput.length > 0 && this.state.updateFlag === true) {
+            let appendArr = this.parseUserInput(this.props.userInput);
+            appendArr = this.convertArrToObject(appendArr);
+            let targetArr = [...this.state.data, ...appendArr];
 
-            return reader.read().then(function (result) {
-                return decoder.decode(result.value);
+            this.setState({
+                data: targetArr,
+                updateFlag: false
             });
-        });
+        }
     }
 
-    getData(result) {
+    parseUserInput = (str) => {
+        let arr = str.split('\n');
+        let retArr = [];
+
+        for (let item of arr) {
+            retArr.push(item.split(','));
+        }
+        return retArr;
+    }
+
+    convertArrToObject = (arr) => {
         let objArr = [];
-        for (let row of result.data) {
+        for (let row of arr) {
             if (row[0] !== 'Date') {
                 objArr.push({
                     date: row[0],
@@ -50,6 +63,23 @@ export class Main extends React.Component {
                 });
             }
         }
+
+        return objArr;
+    }
+
+    fetchCsv() {
+        return fetch('nba.csv').then(function (response) {
+            let reader = response.body.getReader();
+            let decoder = new TextDecoder('utf-8');
+
+            return reader.read().then(function (result) {
+                return decoder.decode(result.value);
+            });
+        });
+    }
+
+    getData(result) {
+        let objArr = this.convertArrToObject(result.data);
         this.setState({data: objArr});
     }
 
