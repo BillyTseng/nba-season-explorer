@@ -25,7 +25,15 @@ const Chart = (props) => {
         legendItems.push(teamName);
         let childArr =[];
 
-        for (let row of props.data) {
+        props.data.sort(function(a, b){
+            return new Date(a.date) - new Date(b.date);
+        });
+
+        for (let i = 0; i < props.data.length; i++) {
+            let row = props.data[i];
+            if (i > 0 && props.data[i].date === props.data[i - 1].date && props.data[i].externalData) {
+                childArr.pop();
+            }
             if (props.radioState === 'Both') {
                 if (row.home.name === teamName) {
                     childArr.push({x: new Date(row.date), y: parseInt(row.home.pts)});
@@ -42,10 +50,6 @@ const Chart = (props) => {
                 }
             }
         }
-
-        childArr.sort(function(a, b){
-            return a.x - b.x;
-        });
 
         dataArr.push({key: idx++, data: childArr});
     }

@@ -36,6 +36,7 @@ export class TeamSelector extends React.Component {
             treeCheckable: true,
             showCheckedStrategy: SHOW_PARENT,
             searchPlaceholder: 'Please select team',
+            treeDefaultExpandedKeys: ['Pacific'],
             style: {
                 width: 900,
             },

@@ -26,7 +26,7 @@ export class Main extends React.Component {
 
     updateData = (userInput) => {
         let appendArr = this.parseUserInput(userInput);
-        appendArr = this.convertArrToObject(appendArr);
+        appendArr = this.convertArrToObject(appendArr, true);
         let targetArr = [...this.state.data, ...appendArr];
         this.setState({
             data: targetArr,
@@ -43,10 +43,10 @@ export class Main extends React.Component {
         return retArr;
     }
 
-    convertArrToObject = (arr) => {
+    convertArrToObject = (arr, flag) => {
         let objArr = [];
         for (let row of arr) {
-            if (row[0] !== 'Date') {
+            if (row[0] && row[0] !== 'Date') {
                 objArr.push({
                     date: row[0],
                     visitor: {
@@ -57,6 +57,7 @@ export class Main extends React.Component {
                         name: row[4],
                         pts: row[5]
                     },
+                    externalData: flag
                 });
             }
         }
@@ -76,7 +77,7 @@ export class Main extends React.Component {
     }
 
     getData(result) {
-        let objArr = this.convertArrToObject(result.data);
+        let objArr = this.convertArrToObject(result.data, false);
         this.setState({data: objArr});
     }
 
