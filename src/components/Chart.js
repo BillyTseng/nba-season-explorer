@@ -44,7 +44,7 @@ const Chart = (props) => {
         }
 
         childArr.sort(function(a, b){
-            return new Date(a.date) - new Date(b.date);
+            return a.x - b.x;
         });
 
         dataArr.push({key: idx++, data: childArr});
