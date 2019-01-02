@@ -24,24 +24,10 @@ export class Main extends React.Component {
         this.getCsvData();
     }
 
-    componentDidUpdate() {
-        // if (this.props.userInput.length > 0 && this.state.updateFlag) {
-        //     let appendArr = this.parseUserInput(this.props.userInput);
-        //     appendArr = this.convertArrToObject(appendArr);
-        //     let targetArr = [...this.state.data, ...appendArr];
-        //
-        //     this.setState({
-        //         data: targetArr,
-        //         updateFlag: false
-        //     });
-        // }
-    }
-
     updateData = (userInput) => {
         let appendArr = this.parseUserInput(userInput);
         appendArr = this.convertArrToObject(appendArr);
         let targetArr = [...this.state.data, ...appendArr];
-
         this.setState({
             data: targetArr,
         });

@@ -25,10 +25,6 @@ const Chart = (props) => {
         legendItems.push(teamName);
         let childArr =[];
 
-        props.data.sort(function(a, b){
-            return new Date(a.date) - new Date(b.date);
-        });
-
         for (let row of props.data) {
             if (props.radioState === 'Both') {
                 if (row.home.name === teamName) {
@@ -46,6 +42,11 @@ const Chart = (props) => {
                 }
             }
         }
+
+        childArr.sort(function(a, b){
+            return new Date(a.date) - new Date(b.date);
+        });
+
         dataArr.push({key: idx++, data: childArr});
     }
 
